@@ -193,9 +193,9 @@ FAQ Knowledge Base + Chatbot Engine
 
 ## 9. Technology Stack (Suggested)
 
-HTML/CSS/JS/JQUERY/BOOSTRAP = Front End
-PHP = Backend
-MySQL = Database
+- HTML/CSS/JS/JQUERY/BOOSTRAP = Front End
+- PHP = Backend
+- MySQL = Database
                              |
 ---
 
