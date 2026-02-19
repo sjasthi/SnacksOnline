@@ -193,15 +193,10 @@ FAQ Knowledge Base + Chatbot Engine
 
 ## 9. Technology Stack (Suggested)
 
-| Layer          | Technologies                                 |
-|----------------|----------------------------------------------|
-| Frontend       | React / HTML5 / CSS3 / Bootstrap / Tailwind  |
-| Backend        | Node.js + Express / Django / Flask           |
-| Database       | MySQL / PostgreSQL / MongoDB                 |
-| Authentication | JWT / OAuth                                  |
-| AI Chatbot     | OpenAI API / Vector DB (FAISS / Pinecone)    |
-| Hosting        | AWS / Azure / Localhost                      |
-
+HTML/CSS/JS/JQUERY/BOOSTRAP = Front End
+PHP = Backend
+MySQL = Database
+                             |
 ---
 
 ## 10. Database Design Overview
