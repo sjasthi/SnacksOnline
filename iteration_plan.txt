@@ -1,0 +1,14 @@
+FP1, FP2  = Absent
+
+FP3 = Project given
+
+FP4 = Not much progress during this week.
+
+==================================== FP 5============================================
+
+FP 5 = I want you to design the user interface to meet the requirements of the project.
+FP 5 = I want you to design the database schema to meet the requirements of the project
+FP 5 = For every page in the web application, what is the file name? You need to sitemap
+FP 5 = What do you plan to do for FP6, FP7, FP8, FP9 and FP 10
+=============================================================================================
+
