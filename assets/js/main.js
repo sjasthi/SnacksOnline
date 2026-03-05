@@ -31,7 +31,7 @@ $(function () {
 
     // Send to chat.php
     $.ajax({
-      url: '/snacksonline/chat.php',
+      url: 'chat.php',
       method: 'POST',
       data: { message: msg },
       dataType: 'json',

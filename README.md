@@ -77,7 +77,7 @@ Open XAMPP Control Panel → Start **Apache** and **MySQL**.
 ### Step 2 — Copy Project Files
 Copy the entire `snacksonline` folder to:
 ```
-xampp\htdocs\snacksonline\
+C:\xampp\htdocs\snacksonline\
 ```
 
 ### Step 3 — Create the Database
@@ -116,6 +116,47 @@ http://localhost/snacksonline/
 > ```php
 > echo password_hash('YourNewPassword', PASSWORD_BCRYPT);
 > ```
+
+---
+
+## 🤖 FAQ-Constrained AI Chatbot
+
+### Overview
+The chatbot provides intelligent customer support using **only verified FAQ data**, preventing hallucinated responses.
+
+### How It Works
+
+**Frontend** (`assets/js/main.js`):
+- jQuery AJAX widget sends user messages to `chat.php`
+- Displays typing indicator while processing
+- Shows bot responses in chat bubbles
+
+**Backend** (`chat.php`):
+1. Receives user message via POST
+2. Splits message into keywords (3+ characters)
+3. Searches `faqs` table for matching questions/answers using keyword matching
+4. Scores results by keyword frequency
+5. Returns the highest-scoring FAQ answer
+6. If no match found, returns safe fallback response
+
+### Features
+- ✅ **Semantic FAQ Matching** — keyword-based similarity scoring
+- ✅ **No Hallucinations** — strictly limited to FAQ database
+- ✅ **Safe Fallback** — directs users to contact support if no match
+- ✅ **Real-time AJAX** — instant responses without page reload
+- ✅ **Admin Controlled** — FAQ content managed via admin panel
+
+### Admin Management
+Admins can add/edit/delete FAQs at `/admin/faqs.php`:
+- Each FAQ has `question`, `answer`, and `category`
+- Changes are **immediately available** to chatbot
+- No code modifications required
+
+### Testing the Chatbot
+1. Open any page on the site
+2. Click the **Chat button** (bottom-right)
+3. Ask a question related to your FAQs
+4. Bot responds with exact FAQ data or helpful fallback
 
 ---
 
