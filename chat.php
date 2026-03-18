@@ -1,96 +1,88 @@
 <?php
 /**
- * chat.php — FAQ-Constrained AI Chatbot Backend
- * Simple, working version without complex parameter binding
+ * chat.php — FAQ Chatbot using LightRAG for retrieval + OpenAI for response
  */
 
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/auth.php';
+require 'vendor/autoload.php';
+
+use OpenAI\Client;
+
+$openai = OpenAI::factory()
+    ->withApiKey('')
+    ->withBaseUri('https://api.groq.com/openai/v1')
+    ->make();
+
 
 header('Content-Type: application/json; charset=utf-8');
 
 try {
     $message = trim($_POST['message'] ?? '');
-    
+
     if (empty($message)) {
         echo json_encode(['answer' => 'Please type a question and I will do my best to help!']);
         exit;
     }
 
-    // Sanitize input
     $message = strip_tags($message);
     if (strlen($message) > 500) {
         $message = substr($message, 0, 500);
     }
 
-    // Extract keywords (3+ chars)
-    $words = preg_split('/\s+/', strtolower($message), -1, PREG_SPLIT_NO_EMPTY);
-    $words = array_unique($words);
-    
-    $filteredWords = [];
-    foreach ($words as $w) {
-        if (strlen($w) >= 3) {
-            $filteredWords[] = $w;
-        }
-    }
-    $words = $filteredWords;
+    // ── Query LightRAG directly with the user's text ──────────
+    // LightRAG handles retrieval internally — no embeddings needed from PHP
+    $ragResult = $lightrag ? $lightrag->query($message, 'naive', 3) : null;
 
-    if (empty($words)) {
-        echo json_encode(['answer' => 'Please ask a more specific question.']);
-        exit;
-    }
+    file_put_contents(__DIR__ . '/rag_debug.log',
+    date('Y-m-d H:i:s') . "\n" .
+    "LightRAG: " . ($lightrag ? "connected" : "NULL") . "\n" .
+    "Query: $message\n" .
+    "Raw result: " . json_encode($ragResult) . "\n\n",
+    FILE_APPEND
+);
+    error_log("LightRAG object: " . ($lightrag ? "OK" : "NULL"));
 
-    // Search FAQs - try each keyword and find best match
-    $bestFaq = null;
-    $bestScore = 0;
+    // LightRAG returns the answer directly in the response field
+    $context = $ragResult['response'] ?? $ragResult['data'] ?? null;
 
-    foreach ($words as $word) {
-        $searchTerm = '%' . $word . '%';
-        
-        // Search in question first (higher priority), then answer
-        $sql = "SELECT question, answer FROM faqs 
-                WHERE question LIKE ? OR answer LIKE ?
-                LIMIT 5";
+    error_log("RAG raw result: " . json_encode($ragResult));
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$searchTerm, $searchTerm]);
-        $faqs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Score each result - questions match higher than answers
-        foreach ($faqs as $faq) {
-            $score = 0;
-            if (stripos($faq['question'], $word) !== false) {
-                $score += 2; // Question match is worth 2 points
-            }
-            if (stripos($faq['answer'], $word) !== false) {
-                $score += 1; // Answer match is worth 1 point
-            }
-            
-            // Keep the best match
-            if ($score > $bestScore) {
-                $bestScore = $score;
-                $bestFaq = $faq;
-            }
-        }
-    }
-
-    // Return best match or fallback
-    if ($bestFaq && !empty($bestFaq['answer'])) {
-        echo json_encode([
-            'answer' => trim($bestFaq['answer']),
-            'source' => 'FAQ'
+    if (!empty($context)) {
+        // Use OpenAI to reformat/personalize the LightRAG response
+        $response = $openai->chat()->create([
+    'model' => 'llama-3.3-70b-versatile',  // Groq model
+        #$response = $openai->chat()->create([
+            #'model'    => 'gpt-3.5-turbo',
+            'messages' => [
+                [
+                    'role'    => 'system',
+                    'content' => 'You are a helpful assistant for SnacksOnline. Use the provided FAQ context to answer the user\'s question in a friendly, concise way. If the context does not answer the question, say so and suggest contacting support@snacksonline.com.'
+                ],
+                [
+                    'role'    => 'user',
+                    'content' => "FAQ Context:\n" . $context . "\n\nUser question: " . $message
+                ],
+            ],
+            'max_tokens' => 300,
         ]);
+
+        echo json_encode([
+            'answer' => $response->choices[0]->message->content,
+            'source' => 'RAG'
+        ]);
+
     } else {
         echo json_encode([
-            'answer' => "I can only answer questions based on our FAQ. I couldn't find a match for your question.\n\nPlease visit our FAQ page or contact support@snacksonline.com",
+            'answer' => "I couldn't find a match in our FAQs. Please visit the FAQ page or contact support@snacksonline.com.",
             'source' => 'fallback'
         ]);
     }
 
 } catch (Exception $e) {
-    file_put_contents(__DIR__ . '/chat_error.log', date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n", FILE_APPEND);
-    echo json_encode([
-        'answer' => 'Sorry, there was an error. Please try again.',
-        'debug' => $e->getMessage()
-    ]);
+    file_put_contents(__DIR__ . '/chat_error.log',
+        date('Y-m-d H:i:s') . " - " . $e->getMessage() . "\n",
+        FILE_APPEND
+    );
+    echo json_encode(['answer' => 'Sorry, there was an error. Please try again.']);
 }
