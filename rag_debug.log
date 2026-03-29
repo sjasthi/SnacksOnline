@@ -1,0 +1,45 @@
+2026-03-13 04:32:15
+LightRAG: connected
+Query: ordering
+Raw result: {"response":"Sorry, I'm not able to provide an answer to that question.[no-context]","references":[]}
+
+2026-03-13 04:32:23
+LightRAG: connected
+Query: password
+Raw result: {"response":"Sorry, I'm not able to provide an answer to that question.[no-context]","references":[]}
+
+2026-03-15 00:11:32
+LightRAG: connected
+Query: hi
+Raw result: null
+
+2026-03-15 00:11:39
+LightRAG: connected
+Query: order
+Raw result: {"response":"**Ordering Process**\n\nTo place an order, you can follow these steps:\n- **Browse our items**: Browse through our collection of products.\n- **Add items to your cart**: Add the desired items to your shopping cart.\n- **Proceed to checkout**: Once you have added all the items you want to purchase, proceed to the checkout page.\n\nYou can also order as a **guest** without creating an account.\n\n### References\n\n* [1] After placing your order, you'll receive a confirmation email within minutes.\n* [2] Your order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard.\n* [3] You can track your order status by logging into your account and viewing your order history.\n* [4] If you need help with placing an order, you can contact support through email or phone.\n* [5] Registered users can view their order history and reorder with a single click.","references":[]}
+
+2026-03-15 00:11:55
+LightRAG: connected
+Query: what next after ordering
+Raw result: {"response":"**Order Confirmation and Shipping Process**\n======================================================\n\nAfter placing your order, you'll receive a confirmation email within minutes. This email includes your order number, item details, and estimated delivery time.\n\nYour order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard.\n\n### References\n\n* [1] \nCategory: Shipping\nQuestion: What next after ordering?\nAnswer: After placing your order, you'll receive a confirmation email within minutes. Your order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard. \n* [2] \nCategory: Shipping\nQuestion: What happens after I place my order?\nAnswer: After placing your order, you'll receive a confirmation email within minutes. Your order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard.","references":[]}
+
+2026-03-15 00:12:02
+LightRAG: connected
+Query: returns
+Raw result: {"response":"**Returns**\n================\n\nIf you need to return an item, our return policy is as follows:\n\n### Eligibility for Returns\n\nReturns are accepted within 7 days of delivery for unopened items. Please review our return policy for full details.\n\n### Refund Process\n\nRefunds are processed once the returned item is received and inspected. The amount will be credited back to your original payment method within 5-7 business days.\n\n### Return Shipping Costs\n\nYes, if the return is due to damage or an error on our part, we cover shipping costs. For other reasons, customers are responsible for return shipping.\n\n### Exchanges\n\nYes, exchanges are possible if the item is in stock. Contact support to initiate an exchange request.\n\n### Damaged Items\n\nIf your item arrives damaged, contact support within 48 hours with photos of the product. We will arrange a replacement or refund promptly.\n\n### Contacting Support\n\nTo initiate a return, exchange, or to report a damaged item, please contact us at support@snacksonline.com or using our phone number with your order number.\n\n### Cancellation of Orders\n\nYou can cancel an order within 2 hours of placing it by visiting your order history page. After this window, the order may already be processed, but you can still contact support to check if cancellation is possible.\n\n### References\n\n### References\n\n* [1] Can I return an item?\n* [2] Refunds are processed once the returned item is received and inspected.\n* [3] Return Shipping Costs\n* [4] Do you cover return shipping costs?\n* [5] How do I get a refund?","references":[]}
+
+2026-03-15 00:12:11
+LightRAG: connected
+Query: refunds?
+Raw result: {"response":"### Refunds\n\nRefunds are processed once the returned item is received and inspected. The amount will be credited back to your original payment method within 5\u20137 business days.\n\nTo initiate a return, you need to contact our support team at support@snacksonline.com or use our Phone number with your order number. Refunds are accepted within 7 days of delivery for unopened items. \n\nYou are responsible for return shipping costs, unless the return is due to damage or an error on our part.\n\n### References\n\n* [1] Returns: Refund Process and Shipping Responsibility\n* [2] Returns: Initiating a Return and Eligibility\n* [3] Returns: Refund Timescale and Payment Method","references":[]}
+
+2026-03-15 00:12:26
+LightRAG: connected
+Query: international shipping
+Raw result: {"response":"### International Shipping\n\nWe currently do not deliver internationally. Our shipping is limited to the Twin Cities. However, international shipping is planned for a future update.\n\n### References\n\n* [1] Category: Shipping, Question: Do you deliver internationally?, Answer: We currently deliver within the Twin Cities. International shipping is planned for a future update.\n* [3] Category: Shipping, Question: Can I track my delivery in real time?, Answer: Yes, once your order is dispatched, you\u2019ll receive a tracking link. This allows you to monitor your package\u2019s journey until it arrives.\n* [5] Category: Shipping, Question: How long does delivery take?, Answer: Orders are dispatched within 24 hours and typically delivered within 3\u20135 business days.\n* [7] Category: Ordering, Question: What next after ordering?, Answer: After placing your order, you'll receive a confirmation email within minutes. Your order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard.\n* [9] Category: Shipping, Question: What happens after I place my order?, Answer: After placing your order, you'll receive a confirmation email within minutes. Your order is then prepared and dispatched within 24 hours. You can track your order status in your account dashboard.","references":[]}
+
+2026-03-15 00:24:59
+LightRAG: connected
+Query: confirmation
+Raw result: {"response":"### Confirmation Process\n\nOnce you place an order, you'll receive a confirmation email within minutes. This email includes your order number, item details, and estimated delivery time. \n\nYou can track your order status by logging into your account and viewing your order history. You'll also receive status updates via email as your order progresses.\n\nAfter you place your order, it is then prepared and dispatched within 24 hours.\n\n### References\n\n* [1] Do you offer order confirmations?\n* [2] What happens after I place my order?\n* [3] How do I track my order?\n* [4] Can I track my delivery in real time?\n* [5] How do I place an order?","references":[]}
+
